@@ -33,8 +33,6 @@ class HabitatService {
 
     static createHabitat(habitat) {
         console.log("habitat create" + habitat);
-        // console.log("habitat.name " + habitat.name);
-        // console.log("habitat.habitat " + habitat.habitat);
         return $.ajax({
             url: this.url, 
             dataType: 'json',
@@ -44,69 +42,18 @@ class HabitatService {
         });
     }
 
-    // static updateDate(date) {
-    //     return $.ajax({
-    //         url: this.url+ `/${date._id}`,
-    //         dataType: 'json',
-    //         data: JSON.stringify({
-    //             "date" : date.date,
-    //             "reservations" : date.reservations}),
-    //         contentType: 'application/json',
-    //         type: 'PUT'
-    //     });
-    // }
- 
-    
-    
     static updateHabitat(habitat) {
         console.log("habitat update" + habitat);
-        // console.log("habitat.name " + habitat.name);
-        // console.log("habitat.habitat " + habitat.habitat);
-        // console.log("habitat.animals " + habitat.animals);
-        // console.log("JSON.stringify(habitat) " + JSON.stringify(habitat));
-        // console.log("JSON.stringify(habitat.name) " + JSON.stringify(habitat.name));
-        // console.log("JSON.stringify(habitat.habitat) " + JSON.stringify(habitat.habitat));
-        // console.log("JSON.stringify(habitat.animals) " + JSON.stringify(habitat.animals));
         return $.ajax({
             url: this.url+ `/${habitat._id}`,
             dataType: 'json',
             data: JSON.stringify({
-                //"habitat" : habitat.name,
                 "habitat" : habitat.habitat,
                 "animals" : habitat.animals}),
             contentType: 'application/json',
             type: 'PUT'
         });
     };
-
-
-    // static updateHabitat(habitat) {
-    //     console.log("Hooray in updateHabitat")
-    //     console.log("habitat name" + habitat.name)
-    //     console.log("habitat below")
-    //     console.log(habitat)
-    //     console.log("habitat.animals below")
-    //     console.log(habitat.animals)
-    //     console.log("JSON.stringify(habitat.animals) below")
-    //     console.log(JSON.stringify(habitat.animals))
-    //     console.log(habitat._id + " habitat._id")
-    //     return $.ajax({
-    //         url: this.url + `/${habitat._id}`, 
-    //         //typo in dataType doesn't change error- could that mean the dataType is the error?
-    //         //Commenting it out also doesn't change the error
-    //         //Commenting out contentType also doesn't change the error
-    //         //crossDomain: true,
-    //         dataType: 'json',
-    //         //data: JSON.stringify(habitat.animals),
-    //         // headers: {
-    //         //     "Access-Control-Allow-Origin": "*"
-    //         // },
-    //         data: JSON.stringify(habitat),
-    //         //contentType: 'text',
-    //         contentType: 'application/json',
-    //         type: 'PUT'
-    //     });
-    // }
 
     static deleteHabitat(id) {
         return $.ajax({
@@ -121,7 +68,6 @@ class DOMManager {
 
     static getAllHabitats() {
         console.log("inside getAllHabitats")
-        //???
         HabitatService.getAllHabitats().then(habitats => this.render(habitats));
     }
 
@@ -131,7 +77,6 @@ class DOMManager {
             .then(() => {
                 return HabitatService.getAllHabitats();
             })
-            //this results in refresh, others don't
             .then((habitats) => this.render(habitats));
     }
 
@@ -140,7 +85,6 @@ class DOMManager {
             .then(() => {
                 return HabitatService.getAllHabitats();
             })
-            //same here 
             .then((habitats) => this.render(habitats));
     }
 
@@ -240,23 +184,11 @@ class DOMManager {
     }
 }
 
-//maybe here? no habitats mentioned also want to code an ability to 
 $('#create-new-habitat').click(() => {
     DOMManager.createHabitat($('#new-habitat-name').val());
     $('#new-habitat-name').val('');
     console.log("new habitat name")
     console.log($('#new-habitat-name').val(''))
 });
-
-// function onLoad() {
-//     document.addEventListener("deviceready", doFirst(), false);
-//     //document.getElementsByTagName("button").addEventListener("click", clickedFunction, false);
-// }
-
-// function doFirst() {
-//     HabitatService.getAllHabitats()
-// }
-
-// onLoad()
 
 DOMManager.getAllHabitats();
