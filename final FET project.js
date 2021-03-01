@@ -46,7 +46,7 @@ class HabitatService {
         console.log("habitat update" + habitat);
         return $.ajax({
             url: this.url+ `/${habitat._id}`,
-            dataType: 'json',
+           // dataType: 'json',
             data: JSON.stringify({
                 "habitat" : habitat.habitat,
                 "animals" : habitat.animals}),
@@ -83,6 +83,7 @@ class DOMManager {
     static deleteHabitat(id) {
         HabitatService.deleteHabitat(id)
             .then(() => {
+                console.log("deleteHabitat")
                 return HabitatService.getAllHabitats();
             })
             .then((habitats) => this.render(habitats));
@@ -97,15 +98,18 @@ class DOMManager {
             if (habitat._id == id) {
                 console.log("Hooray in the for if")
                 habitat.animals.push(new Animal($(`#${habitat._id}-animal-name`).val(), $(`#${habitat._id}-animal-number`).val()));
+                console.log("HabitatService.updateHabitat(habitat) ")
+                console.log("habitat")
+                console.log(habitat)
                 HabitatService.updateHabitat(habitat) 
                     .then(() => {
+                        console.log("updateHabitat in addAnimal")
                         return HabitatService.getAllHabitats();
                     })
                     .then(habitats => this.render(habitats));
-                    console.log(this.habitats);
-                    console.log("Hooray bottom of if statement")
                 }
             }
+
             console.log("bottom of addAnimal method")
         }
 //Jolene's way
